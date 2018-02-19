@@ -12,4 +12,5 @@ end
 target 'WebDriverAgentLib' do
 #  use_frameworks!
   pod 'SDVersion', '4.3.2'
+  pod 'GoogleWebRTC'
 end

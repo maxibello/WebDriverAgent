@@ -28,8 +28,20 @@
 #import "WebSocketScreenCasting.h"
 #import <SDVersion/SDVersion.h>
 
-static NSString *const FBServerURLBeginMarker = @"ServerURLHere->";
-static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
+//Socket messages
+static NSString *const DEVICE_CONNECTED = @"connect";
+static NSString *const DEVICE_DISCONNECTED = @"disconnect";
+static NSString *const REGISTER_DEVICE = @"registerDevice";
+static NSString *const CONNECTED_TO_CLIENT = @"connectedToClient";
+static NSString *const DISCONNECTED_FROM_CLIENT = @"disconnectedFromClient";
+static NSString *const PERFORM_ACTION = @"performAction";
+
+//Device metadata keys
+static NSString *const OS_NAME = @"osName";
+static NSString *const OS_VERSION = @"osVersion";
+static NSString *const DEVICE_ID = @"deviceId";
+static NSString *const DEVICE_MODEL = @"deviceModel";
+
 static BOOL isConnectedToClient;
 @interface FBSocketConnection : RoutingConnection
 @end
@@ -43,7 +55,6 @@ static BOOL isConnectedToClient;
 }
 
 @end
-
 
 @interface FBWebSocket ()
 @property (nonatomic, strong) FBExceptionHandler *exceptionHandler;
@@ -86,18 +97,18 @@ static BOOL isConnectedToClient;
 
 - (void)startWebSocket
 {
-  NSURL *serverURL = [[NSURL alloc] initWithString:@"http://localhost:8000"];
+  NSURL *serverURL = [[NSURL alloc] initWithString:@"http://172.20.52.133:8000"];
   self.manager = [[SocketManager alloc] initWithSocketURL:serverURL config:@{@"log": @NO, @"compress": @YES}];
   SocketIOClient *clientSocket = self.manager.defaultSocket;
   
   self.screenCasting = [[WebSocketScreenCasting alloc] init];
   
-  [clientSocket on:@"connect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+  [clientSocket on: DEVICE_CONNECTED callback:^(NSArray* data, SocketAckEmitter* ack) {
     NSLog(@"socket connected");
-    [clientSocket emit:@"registerDevice" with: [[NSArray alloc] initWithObjects:[self getRegisterDictionary], nil]];
+    [clientSocket emit: REGISTER_DEVICE with: [[NSArray alloc] initWithObjects:[self getRegisterDictionary], nil]];
   }];
   
-  [clientSocket on:@"connectedToClient" callback:^(NSArray* data, SocketAckEmitter* ack) {
+  [clientSocket on: CONNECTED_TO_CLIENT callback:^(NSArray* data, SocketAckEmitter* ack) {
     if(!isConnectedToClient) {
       isConnectedToClient = true;
       [self.screenCasting setSocketConnected:YES];
@@ -107,18 +118,18 @@ static BOOL isConnectedToClient;
     }
   }];
   
-  [clientSocket on:@"disconnectedFromClient" callback:^(NSArray* data, SocketAckEmitter* ack) {
+  [clientSocket on: DISCONNECTED_FROM_CLIENT callback:^(NSArray* data, SocketAckEmitter* ack) {
     isConnectedToClient = false;
     [self.screenCasting setSocketConnected:NO];
     NSLog(@"socket Disconnected from Client.");
   }];
   
-  [clientSocket on:@"disconnect" callback:^(NSArray* data, SocketAckEmitter* ack) {
+  [clientSocket on: DEVICE_DISCONNECTED callback:^(NSArray* data, SocketAckEmitter* ack) {
     [self.screenCasting setSocketConnected:NO];
     NSLog(@"socket disconnected");
   }];
   
-  [clientSocket on:@"performAction" callback:^(NSArray* data, SocketAckEmitter* ack) {
+  [clientSocket on: PERFORM_ACTION callback:^(NSArray* data, SocketAckEmitter* ack) {
     [self socketOnPerformActionHandler:data andSocketAck:ack];
   }];
   
@@ -137,10 +148,10 @@ static BOOL isConnectedToClient;
 
 -(NSDictionary*) getRegisterDictionary {
   NSMutableDictionary *registerDict = [[NSMutableDictionary alloc] init];
-  [registerDict setObject:[[UIDevice currentDevice] systemName] forKey:@"osName"];
-  [registerDict setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
-  [registerDict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"deviceId"];
-  [registerDict setObject:[SDVersion deviceNameString] forKey:@"deviceModel"];
+  [registerDict setObject:[[UIDevice currentDevice] systemName] forKey: OS_NAME];
+  [registerDict setObject:[[UIDevice currentDevice] systemVersion] forKey: OS_VERSION];
+  [registerDict setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey: DEVICE_ID];
+  [registerDict setObject:[SDVersion deviceNameString] forKey: DEVICE_MODEL];
   return registerDict;
 }
 

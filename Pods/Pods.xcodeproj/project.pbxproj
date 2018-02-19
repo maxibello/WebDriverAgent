@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		05E4BE7D9D64F4B280FE8AF7B664F275 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		0B354B439D646E85614C2A9022CA4007 /* SDiOSVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = E40623FC0FBAC179F7C1F50DBE6462A9 /* SDiOSVersion.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2372403386788FFDC2A8914C68870E95 /* SDVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 54365229200E29A00D78450C321D7C99 /* SDVersion.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2B5234EAD8D28A88057526271CE70325 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		6CB3D0BB6A96C30B931F16897565C4BD /* SDiOSVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = B983E0CC1D44CD64A8570D314C37FE17 /* SDiOSVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		93B171D94B147DB7011D8874C44C0E59 /* SDiOSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = B167F3A59AC9C6A6A1D69137D76B198D /* SDiOSVersion.m */; };
+		93B171D94B147DB7011D8874C44C0E59 /* SDiOSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 255E50476A2D30113FFA1E21FD9D540B /* SDiOSVersion.m */; };
 		A7498137E30A375BA66FA2A75386B090 /* Pods-IntegrationApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F1861AEDEFA258B0D2F6258285A7FF2 /* Pods-IntegrationApp-dummy.m */; };
-		A9243670F35189FB478302E14544EE53 /* SDVersion-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3886292AE12CD11A079871B5144935B8 /* SDVersion-dummy.m */; };
-		E47893877873826AC1AE36BD908E3101 /* SDVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 0825C743BF97B99004592173B8711F69 /* SDVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A9243670F35189FB478302E14544EE53 /* SDVersion-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FD17565998DDF18AE5BD6553452A6ECE /* SDVersion-dummy.m */; };
 		E9DD327775D60A82CD56FB8AE2049C34 /* Pods-WebDriverAgentLib-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 700C645644EBEC4E8B1E93A2798B9A04 /* Pods-WebDriverAgentLib-dummy.m */; };
 		F2657F0546906CEBAABE25E51623770B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -29,30 +29,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0825C743BF97B99004592173B8711F69 /* SDVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDVersion.h; path = SDVersion/SDVersion.h; sourceTree = "<group>"; };
+		0A4B7E20A3A3308ED5F3FC7DFED51F36 /* SDVersion.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SDVersion.xcconfig; sourceTree = "<group>"; };
+		255E50476A2D30113FFA1E21FD9D540B /* SDiOSVersion.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDiOSVersion.m; path = SDVersion/SDiOSVersion/SDiOSVersion.m; sourceTree = "<group>"; };
 		2B595F67213B6D479B29B4A531EF74F9 /* Pods-WebDriverAgentLib-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-WebDriverAgentLib-resources.sh"; sourceTree = "<group>"; };
 		33691FDCBE6FF0658C8B539A4771718B /* Pods-IntegrationApp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-IntegrationApp-resources.sh"; sourceTree = "<group>"; };
 		3765BAFFE23CDE5E827391BFFF5DB142 /* Pods-IntegrationApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-IntegrationApp-acknowledgements.plist"; sourceTree = "<group>"; };
-		3886292AE12CD11A079871B5144935B8 /* SDVersion-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SDVersion-dummy.m"; sourceTree = "<group>"; };
 		3F1861AEDEFA258B0D2F6258285A7FF2 /* Pods-IntegrationApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-IntegrationApp-dummy.m"; sourceTree = "<group>"; };
 		40D06DB30018E8F229124E1DDE7A7C2B /* libPods-WebDriverAgentLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-WebDriverAgentLib.a"; path = "libPods-WebDriverAgentLib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		419752DD2C8B72674A099E808F29EBF1 /* Pods-IntegrationApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-IntegrationApp-frameworks.sh"; sourceTree = "<group>"; };
+		54365229200E29A00D78450C321D7C99 /* SDVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDVersion.h; path = SDVersion/SDVersion.h; sourceTree = "<group>"; };
 		5AEDC24C1D0F3BF82A2E655410C8161F /* Pods-WebDriverAgentLib-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-WebDriverAgentLib-acknowledgements.plist"; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6A9DBC96B664B5CEB017CCF6A234FD71 /* Pods-WebDriverAgentLib-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-WebDriverAgentLib-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6DE7A58079311D745022688F9024EB78 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Frameworks/frameworks/WebRTC.framework; sourceTree = "<group>"; };
 		700C645644EBEC4E8B1E93A2798B9A04 /* Pods-WebDriverAgentLib-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-WebDriverAgentLib-dummy.m"; sourceTree = "<group>"; };
-		72E5664B4949215AAADC387DCE65E90D /* SDVersion.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SDVersion.xcconfig; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E1EC2F5E066D239F5A49914974C6C8D /* Pods-WebDriverAgentLib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WebDriverAgentLib.debug.xcconfig"; sourceTree = "<group>"; };
+		AB13096D5E61AEEA0F79B5E6D8B79B4C /* SDVersion-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SDVersion-prefix.pch"; sourceTree = "<group>"; };
 		AC735CBC90C005B7B4AEBE888FF02476 /* Pods-IntegrationApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-IntegrationApp-acknowledgements.markdown"; sourceTree = "<group>"; };
-		B167F3A59AC9C6A6A1D69137D76B198D /* SDiOSVersion.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDiOSVersion.m; path = SDVersion/SDiOSVersion/SDiOSVersion.m; sourceTree = "<group>"; };
-		B983E0CC1D44CD64A8570D314C37FE17 /* SDiOSVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDiOSVersion.h; path = SDVersion/SDiOSVersion/SDiOSVersion.h; sourceTree = "<group>"; };
 		C0D2489F81B0ECBFF22115D7AA82AE11 /* Pods-IntegrationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-IntegrationApp.debug.xcconfig"; sourceTree = "<group>"; };
 		CBEC4BFD7E5F8AEB776686036004929B /* libSDVersion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSDVersion.a; path = libSDVersion.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D33CE47DB65C3A57929F4FD2393F45A8 /* SDVersion-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SDVersion-prefix.pch"; sourceTree = "<group>"; };
 		DA429A89F7AD4EB7A9E0E3D7F796FE60 /* Pods-IntegrationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-IntegrationApp.release.xcconfig"; sourceTree = "<group>"; };
 		DB96A77A49A4E6C7B8091B9928C20FC9 /* libPods-IntegrationApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-IntegrationApp.a"; path = "libPods-IntegrationApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC8E5E78B278BE1FBDA1799B5E2C22DF /* Pods-WebDriverAgentLib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-WebDriverAgentLib.release.xcconfig"; sourceTree = "<group>"; };
+		E40623FC0FBAC179F7C1F50DBE6462A9 /* SDiOSVersion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDiOSVersion.h; path = SDVersion/SDiOSVersion/SDiOSVersion.h; sourceTree = "<group>"; };
+		FD17565998DDF18AE5BD6553452A6ECE /* SDVersion-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SDVersion-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,16 +84,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0D01C97664295971EB1A3E5C8F7E030B /* SDVersion */ = {
+		20353EC17B3CC70320B0B2D5F76A4B66 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				B983E0CC1D44CD64A8570D314C37FE17 /* SDiOSVersion.h */,
-				B167F3A59AC9C6A6A1D69137D76B198D /* SDiOSVersion.m */,
-				0825C743BF97B99004592173B8711F69 /* SDVersion.h */,
-				C841C7E3546DCBD2F1A6DCCCE47515ED /* Support Files */,
+				0A4B7E20A3A3308ED5F3FC7DFED51F36 /* SDVersion.xcconfig */,
+				FD17565998DDF18AE5BD6553452A6ECE /* SDVersion-dummy.m */,
+				AB13096D5E61AEEA0F79B5E6D8B79B4C /* SDVersion-prefix.pch */,
 			);
-			name = SDVersion;
-			path = SDVersion;
+			name = "Support Files";
+			path = "../Target Support Files/SDVersion";
 			sourceTree = "<group>";
 		};
 		5312CEC021AD69A96445CD93FA653655 /* Pods-IntegrationApp */ = {
@@ -110,6 +110,24 @@
 			path = "Target Support Files/Pods-IntegrationApp";
 			sourceTree = "<group>";
 		};
+		645124E7BCC9FF152D77470B88E0F21B /* GoogleWebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				AD864A428B4E47170F6D549734DBE51B /* Frameworks */,
+			);
+			name = GoogleWebRTC;
+			path = GoogleWebRTC;
+			sourceTree = "<group>";
+		};
+		6F595F899071E730E86A31493CB8E15A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				645124E7BCC9FF152D77470B88E0F21B /* GoogleWebRTC */,
+				A99892064C8F667CA91FB114A42B2DEC /* SDVersion */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		717A76774C9AFF6EC557F5B9507322A7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,7 +143,7 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				AEDFA16FE33AAB7E275C89A8643D2E12 /* Pods */,
+				6F595F899071E730E86A31493CB8E15A /* Pods */,
 				717A76774C9AFF6EC557F5B9507322A7 /* Products */,
 				9C9CD3AD3B1D50E93485937D5E48B126 /* Targets Support Files */,
 			);
@@ -140,12 +158,24 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		AEDFA16FE33AAB7E275C89A8643D2E12 /* Pods */ = {
+		A99892064C8F667CA91FB114A42B2DEC /* SDVersion */ = {
 			isa = PBXGroup;
 			children = (
-				0D01C97664295971EB1A3E5C8F7E030B /* SDVersion */,
+				E40623FC0FBAC179F7C1F50DBE6462A9 /* SDiOSVersion.h */,
+				255E50476A2D30113FFA1E21FD9D540B /* SDiOSVersion.m */,
+				54365229200E29A00D78450C321D7C99 /* SDVersion.h */,
+				20353EC17B3CC70320B0B2D5F76A4B66 /* Support Files */,
 			);
-			name = Pods;
+			name = SDVersion;
+			path = SDVersion;
+			sourceTree = "<group>";
+		};
+		AD864A428B4E47170F6D549734DBE51B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6DE7A58079311D745022688F9024EB78 /* WebRTC.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -154,17 +184,6 @@
 				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C841C7E3546DCBD2F1A6DCCCE47515ED /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				72E5664B4949215AAADC387DCE65E90D /* SDVersion.xcconfig */,
-				3886292AE12CD11A079871B5144935B8 /* SDVersion-dummy.m */,
-				D33CE47DB65C3A57929F4FD2393F45A8 /* SDVersion-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SDVersion";
 			sourceTree = "<group>";
 		};
 		D0BDE1379C366876D386E2E70CF09888 /* Pods-WebDriverAgentLib */ = {
@@ -196,8 +215,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CB3D0BB6A96C30B931F16897565C4BD /* SDiOSVersion.h in Headers */,
-				E47893877873826AC1AE36BD908E3101 /* SDVersion.h in Headers */,
+				0B354B439D646E85614C2A9022CA4007 /* SDiOSVersion.h in Headers */,
+				2372403386788FFDC2A8914C68870E95 /* SDVersion.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +362,7 @@
 		};
 		16856DCE34E119A79A705D1EC81A3B03 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72E5664B4949215AAADC387DCE65E90D /* SDVersion.xcconfig */;
+			baseConfigurationReference = 0A4B7E20A3A3308ED5F3FC7DFED51F36 /* SDVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -461,7 +480,7 @@
 		};
 		9543E9403D3FE81DD4006F4979085CA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72E5664B4949215AAADC387DCE65E90D /* SDVersion.xcconfig */;
+			baseConfigurationReference = 0A4B7E20A3A3308ED5F3FC7DFED51F36 /* SDVersion.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";

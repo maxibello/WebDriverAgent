@@ -29,8 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)fb_goToHomescreenWithError:(NSError **)error;
 - (BOOL)fb_doubleTapHomeWithError:(NSError **)error;
-- (BOOL)fb_increaseVolume;
-- (BOOL)fb_decreaseVolume;
+- (void)fb_increaseVolume;
+- (void)fb_decreaseVolume;
 
 
 /**

@@ -83,12 +83,6 @@ static XCUIScreen *mainScreen;
   }
  
   return [self fb_screenshotWithError:error withOrientation:lastScreenOrientation andScreenWidth:lastScreenSize.width andScreenHeight:lastScreenSize.height];
-  
-  
-  // The resulting data is a JPEG image, so we need to convert it to PNG representation
-
-//  UIImage *image = [UIImage imageWithData:result];
-//  return (NSData *)UIImagePNGRepresentation(image);
 
 }
 
@@ -111,7 +105,7 @@ static XCUIScreen *mainScreen;
   }
 
   CGRect screenRect = CGRectMake(0, 0, screenWidth, screenHeight);
-  
+
   NSUInteger quality = 2;
   NSData *result =   [mainScreen screenshotDataForQuality:quality rect:screenRect error:nil];
   return result;

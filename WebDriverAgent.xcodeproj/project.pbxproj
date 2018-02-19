@@ -328,6 +328,8 @@
 		F639A79B2004A73F00EC0C00 /* JLRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F639A7932004A52200EC0C00 /* JLRoutes.framework */; };
 		F639A79C2004BF5500EC0C00 /* module.modulemap in Headers */ = {isa = PBXBuildFile; fileRef = AD42DD2A1CF121E600806E5D /* module.modulemap */; };
 		F639A79D2004C3DB00EC0C00 /* libJLRoutes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F639A7912004A52200EC0C00 /* libJLRoutes.a */; };
+		F65E8063202C61CE0037B082 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F65E8059202C61CD0037B082 /* WebRTC.framework */; };
+		F65E8064202C61DB0037B082 /* WebRTC.framework in Copy frameworks */ = {isa = PBXBuildFile; fileRef = F65E8059202C61CD0037B082 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F69C05092007C62F005521ED /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F69C05082007C62F005521ED /* Podfile */; };
 /* End PBXBuildFile section */
 
@@ -460,6 +462,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F65E8064202C61DB0037B082 /* WebRTC.framework in Copy frameworks */,
 				F632494C20074D9E003EEA2C /* JLRoutes.framework in Copy frameworks */,
 				F632494B20074D89003EEA2C /* RoutingHTTPServer.framework in Copy frameworks */,
 				F632494A20074D70003EEA2C /* SocketIO.framework in Copy frameworks */,
@@ -817,8 +820,10 @@
 		F639A75A2003756800EC0C00 /* FBRouteResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBRouteResponse.h; sourceTree = "<group>"; };
 		F639A75B2003756800EC0C00 /* FBRouteResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FBRouteResponse.m; sourceTree = "<group>"; };
 		F639A78A2004A52200EC0C00 /* JLRoutes.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JLRoutes.xcodeproj; path = Carthage/Checkouts/JLRoutes/JLRoutes.xcodeproj; sourceTree = "<group>"; };
+		F65E8049202C53960037B082 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Pods/WebRTC/WebRTC.framework; sourceTree = "<group>"; };
+		F65E8059202C61CD0037B082 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Pods/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework; sourceTree = "<group>"; };
 		F69C04F62007B7B1005521ED /* Device.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Device.xcodeproj; path = Carthage/Checkouts/Device.swift/Device.xcodeproj; sourceTree = "<group>"; };
-		F69C05082007C62F005521ED /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		F69C05082007C62F005521ED /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F69C05332007C8EC005521ED /* SDVersion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDVersion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -827,6 +832,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F65E8063202C61CE0037B082 /* WebRTC.framework in Frameworks */,
 				9708CD4220036DE50085B04D /* Starscream.framework in Frameworks */,
 				9708CD3820036DD10085B04D /* SocketIO.framework in Frameworks */,
 				7174AF041D9D39AF008C8AD5 /* libxml2.tbd in Frameworks */,
@@ -1004,6 +1010,8 @@
 		B6E83A410C45944B036B6B0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F65E8049202C53960037B082 /* WebRTC.framework */,
+				F65E8059202C61CD0037B082 /* WebRTC.framework */,
 				F69C05332007C8EC005521ED /* SDVersion.framework */,
 				F69C04F62007B7B1005521ED /* Device.xcodeproj */,
 				F639A78A2004A52200EC0C00 /* JLRoutes.xcodeproj */,
@@ -2434,6 +2442,8 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Pods/WebRTC",
+					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = WebDriverAgentLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -2486,6 +2496,8 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Pods/WebRTC",
+					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = WebDriverAgentLib/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
