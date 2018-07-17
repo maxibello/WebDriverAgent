@@ -69,10 +69,10 @@ function build_inspector() {
 
   echo "Fetching Inspector dependencies..."
   npm install
+  
+  echo "Validating Inspector"
+  "$INSPECTOR_DIR"/node_modules/.bin/eslint js/*
 
-  # echo "Validating Inspector"
-  # "$INSPECTOR_DIR"/node_modules/.bin/flow
-  # "$INSPECTOR_DIR"/node_modules/.bin/eslint js/*
 
   echo "Building Inspector..."
   npm run build
