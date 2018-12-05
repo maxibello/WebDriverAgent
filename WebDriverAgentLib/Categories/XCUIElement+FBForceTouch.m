@@ -7,8 +7,9 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-#import "XCUIElement+FBTap.h"
+#import "XCUIElement+FBForceTouch.h"
 
+#import "FBElementHitPoint.h"
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
 #import "FBMacros.h"
@@ -20,20 +21,18 @@
 #import "XCPointerEventPath.h"
 #import "XCTRunnerDaemonSession.h"
 
-const CGFloat FBTapDuration = 0.01f;
+@implementation XCUIElement (FBForceTouch)
 
-@implementation XCUIElement (FBTap)
-
-- (BOOL)fb_tapWithError:(NSError **)error
+- (BOOL)fb_forceTouchWithPressure:(double)pressure duration:(double)duration error:(NSError **)error
 {
   FBElementHitPoint *hitpoint = [self.fb_lastSnapshot fb_hitPointWithAlternativeOnFailure:error];
   if (!hitpoint) {
     return NO;
   }
-  return [self fb_performTapAtPoint:hitpoint.point error:error];
+  return [self fb_performFourceTouchAtPoint:hitpoint.point pressure:pressure duration:duration error:error];
 }
 
-- (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
+- (BOOL)fb_forceTouchCoordinate:(CGPoint)relativeCoordinate pressure:(double)pressure duration:(double)duration error:(NSError **)error
 {
   CGPoint hitPoint = CGPointMake(self.frame.origin.x + relativeCoordinate.x, self.frame.origin.y + relativeCoordinate.y);
   if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
@@ -44,17 +43,17 @@ const CGFloat FBTapDuration = 0.01f;
      */
     hitPoint = FBInvertPointForApplication(hitPoint, self.application.frame.size, self.application.interfaceOrientation);
   }
-  return [self fb_performTapAtPoint:hitPoint error:error];
+  return [self fb_performFourceTouchAtPoint:hitPoint pressure:pressure duration:duration error:error];
 }
 
-- (BOOL)fb_performTapAtPoint:(CGPoint)hitPoint error:(NSError *__autoreleasing*)error
+- (BOOL)fb_performFourceTouchAtPoint:(CGPoint)hitPoint pressure:(double)pressure duration:(double)duration error:(NSError *__autoreleasing*)error
 {
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
   [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
-        [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
+        [FBLogger logFmt:@"Failed to perform force touch: %@", commandError];
       }
       if (error) {
         *error = commandError;
@@ -62,8 +61,8 @@ const CGFloat FBTapDuration = 0.01f;
       didSucceed = (commandError == nil);
       completion();
     };
-
-    XCSynthesizedEventRecord *event = [self fb_generateTapEvent:hitPoint orientation:self.interfaceOrientation];
+    
+    XCSynthesizedEventRecord *event = [self fb_generateForceTouchEvent:hitPoint pressure:pressure duration:duration orientation:self.interfaceOrientation];
     [[XCTRunnerDaemonSession sharedSession] synthesizeEvent:event completion:^(NSError *invokeError){
       handlerBlock(event, invokeError);
     }];
@@ -71,16 +70,17 @@ const CGFloat FBTapDuration = 0.01f;
   return didSucceed;
 }
 
-- (XCSynthesizedEventRecord *)fb_generateTapEvent:(CGPoint)hitPoint orientation:(UIInterfaceOrientation)orientation
+- (XCSynthesizedEventRecord *)fb_generateForceTouchEvent:(CGPoint)hitPoint pressure:(double)pressure duration:(double)duration orientation:(UIInterfaceOrientation)orientation
 {
   XCPointerEventPath *eventPath = [[XCPointerEventPath alloc] initForTouchAtPoint:hitPoint offset:0.0];
-  [eventPath liftUpAtOffset:FBTapDuration];
+  [eventPath pressDownWithPressure:pressure atOffset:0.0];
   if (![XCTRunnerDaemonSession sharedSession].useLegacyEventCoordinateTransformationPath) {
     orientation = UIInterfaceOrientationPortrait;
   }
+  [eventPath liftUpAtOffset:duration];
   XCSynthesizedEventRecord *event =
   [[XCSynthesizedEventRecord alloc]
-   initWithName:[NSString stringWithFormat:@"Tap on %@", NSStringFromCGPoint(hitPoint)]
+   initWithName:[NSString stringWithFormat:@"Force touch on %@", NSStringFromCGPoint(hitPoint)]
    interfaceOrientation:orientation];
   [event addPointerEventPath:eventPath];
   return event;
