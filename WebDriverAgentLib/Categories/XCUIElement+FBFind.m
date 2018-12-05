@@ -59,7 +59,7 @@
   NSMutableArray *resultElementList = [NSMutableArray array];
   NSArray *tokens = [locator componentsSeparatedByString:@"|"];
   NSError *error = nil;
-  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(getBy.*)\\((.+)\\)" options:NSRegularExpressionCaseInsensitive error:&error];
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\.{0,1})([0-9\\*]*)(\\(.+\\))*(\\[[0-9a-z]+\\]){0,1}$" options:NSRegularExpressionCaseInsensitive error:&error];
   
   __block XCUIElement *currentElement = self;
   
@@ -74,16 +74,24 @@
     NSString *func = [token substringWithRange:funcRange];
     NSString *arg = [token substringWithRange:argRange];
     if ([func isEqualToString:@"getById"]) {
-      currentElement = [[currentElement fb_descendantsMatchingIdentifier:arg] firstObject];
+      currentElement = [[currentElement fb_descendantsMatchingIdentifier:arg shouldReturnAfterFirstMatch:"YES"] firstObject];
     } else if ([func isEqualToString:@"getByIndex"]) {
       NSArray *asdf = [arg componentsSeparatedByString:@","];
       NSUInteger type = [[asdf objectAtIndex:0] integerValue];
       NSString *val = [asdf objectAtIndex:1];
       if ([val isEqualToString:@"last"]) {
-        currentElement = [[[currentElement descendantsMatchingType:type] allElementsBoundByIndex] lastObject];
+        if (tokenIdx == 0) {
+          currentElement = [[[currentElement descendantsMatchingType:type] allElementsBoundByIndex] lastObject];
+        } else {
+          currentElement = [[[currentElement childrenMatchingType:type] allElementsBoundByIndex] lastObject];
+        }
       } else {
         NSUInteger indx = [[asdf objectAtIndex:1] integerValue];
-        currentElement = [[currentElement descendantsMatchingType:type] elementBoundByIndex:indx];
+        if (tokenIdx == 0) {
+          currentElement = [[currentElement descendantsMatchingType:type] elementBoundByIndex:indx];
+        } else {
+          currentElement = [[currentElement childrenMatchingType:type] elementBoundByIndex:indx];
+        }
       }
     } else if ([func isEqualToString:@"getByAttribute"]) {
       NSArray *asdf = [arg componentsSeparatedByString:@","];
