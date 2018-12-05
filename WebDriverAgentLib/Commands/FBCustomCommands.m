@@ -42,6 +42,7 @@
     [[FBRoute POST:@"/wda/keyboard/dismiss"] respondWithTarget:self action:@selector(handleDismissKeyboardCommand:)],
     [[FBRoute GET:@"/wda/elementCache/size"] respondWithTarget:self action:@selector(handleGetElementCacheSizeCommand:)],
     [[FBRoute POST:@"/wda/elementCache/clear"] respondWithTarget:self action:@selector(handleClearElementCacheCommand:)],
+    [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleTimeouts:)],
   ];
 }
 
@@ -83,7 +84,10 @@
 + (id<FBResponsePayload>)handleTimeouts:(FBRouteRequest *)request
 {
   // This method is intentionally not supported.
-  return FBResponseWithOK();
+  NSDictionary *result = @{
+                           @"value": @"200",
+                           };
+  return FBResponseWithStatus(FBCommandStatusNoError, result);
 }
 
 + (id<FBResponsePayload>)handleDismissKeyboardCommand:(FBRouteRequest *)request

@@ -120,6 +120,8 @@ static id<FBResponsePayload> FBNoSuchElementErrorResponseForRequest(FBRouteReque
     elements = [element fb_descendantsMatchingProperty:propertyName value:propertyValue partialSearch:partialSearch];
   } else if ([usingText isEqualToString:@"class name"]) {
     elements = [element fb_descendantsMatchingClassName:value shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
+  } else if ([usingText isEqualToString:@"xui"]) {
+    elements = [element fb_descendantsMatchingXui:value];
   } else if ([usingText isEqualToString:@"class chain"]) {
     elements = [element fb_descendantsMatchingClassChain:value shouldReturnAfterFirstMatch:shouldReturnAfterFirstMatch];
   } else if ([usingText isEqualToString:@"xpath"]) {
