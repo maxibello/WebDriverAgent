@@ -26,11 +26,56 @@ const CGFloat FBTapDuration = 0.01f;
 
 - (BOOL)fb_tapWithError:(NSError **)error
 {
-  FBElementHitPoint *hitpoint = [self.fb_lastSnapshot fb_hitPointWithAlternativeOnFailure:error];
-  if (!hitpoint) {
-    return NO;
-  }
-  return [self fb_performTapAtPoint:hitpoint.point error:error];
+  [self fb_waitUntilFrameIsStable];
+  __block BOOL didSucceed;
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+    CGPoint hitPoint = self.isHittable ? self.lastSnapshot.hitPoint : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
+    XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
+      if (commandError) {
+        [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
+      }
+      if (error) {
+        *error = commandError;
+      }
+      didSucceed = (commandError == nil);
+      completion();
+    };
+    XCEventGenerator *eventGenerator = [XCEventGenerator sharedGenerator];
+    if ([eventGenerator respondsToSelector:@selector(tapAtTouchLocations:numberOfTaps:orientation:handler:)]) {
+      [eventGenerator tapAtTouchLocations:@[[NSValue valueWithCGPoint:hitPoint]] numberOfTaps:1 orientation:self.interfaceOrientation handler:handlerBlock];
+    }
+    else {
+      [eventGenerator tapAtPoint:hitPoint orientation:self.interfaceOrientation handler:handlerBlock];
+    }
+  }];
+  return didSucceed;
+}
+
+- (BOOL)fb_tapForClearWithError:(NSError **)error
+{
+  [self fb_waitUntilFrameIsStable];
+  __block BOOL didSucceed;
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+    CGPoint hitPoint = [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
+    XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
+      if (commandError) {
+        [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
+      }
+      if (error) {
+        *error = commandError;
+      }
+      didSucceed = (commandError == nil);
+      completion();
+    };
+    XCEventGenerator *eventGenerator = [XCEventGenerator sharedGenerator];
+    if ([eventGenerator respondsToSelector:@selector(tapAtTouchLocations:numberOfTaps:orientation:handler:)]) {
+      [eventGenerator tapAtTouchLocations:@[[NSValue valueWithCGPoint:hitPoint]] numberOfTaps:1 orientation:self.interfaceOrientation handler:handlerBlock];
+    }
+    else {
+      [eventGenerator tapAtPoint:hitPoint orientation:self.interfaceOrientation handler:handlerBlock];
+    }
+  }];
+  return didSucceed;
 }
 
 - (BOOL)fb_tapCoordinate:(CGPoint)relativeCoordinate error:(NSError **)error
