@@ -43,6 +43,7 @@
     [[FBRoute GET:@"/wda/elementCache/size"] respondWithTarget:self action:@selector(handleGetElementCacheSizeCommand:)],
     [[FBRoute POST:@"/wda/elementCache/clear"] respondWithTarget:self action:@selector(handleClearElementCacheCommand:)],
     [[FBRoute POST:@"/timeouts/implicit_wait"] respondWithTarget:self action:@selector(handleTimeouts:)],
+    [[FBRoute POST:@"/setToPasteboard"] respondWithTarget:self action:@selector(handleSetToPasteboard:)],
   ];
 }
 
@@ -125,4 +126,13 @@
   [elementCache clear];
   return FBResponseWithOK();
 }
+
++ (id<FBResponsePayload>)handleSetToPasteboard:(FBRouteRequest *)request
+{
+  NSString *requestedText = request.arguments[@"value"];
+  UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+  pasteboard.string = requestedText;
+  return FBResponseWithOK();
+}
+
 @end
