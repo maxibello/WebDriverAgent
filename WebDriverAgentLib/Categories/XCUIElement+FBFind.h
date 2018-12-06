@@ -26,13 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<XCUIElement *> *)fb_descendantsMatchingClassName:(NSString *)className shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch;
 
 /**
- Returns an array of descendants matching given hui locator
- @param locator requested hui locator
- @return an array of descendants matching given cell index
- */
-- (NSArray<XCUIElement *> *)av_descendantsMatchingXui:(NSString *)locator;
-
-/**
  Returns an array of descendants matching given accessibility id
 
  @param accessibilityId requested accessibility id

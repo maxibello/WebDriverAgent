@@ -13,7 +13,7 @@
 #import "FBErrorBuilder.h"
 #import "FBKeyboard.h"
 #import "NSString+FBVisualLength.h"
-#import "XCUIElement+FBTap.h"
+#import "XCUIElement+AVTap.h"
 
 @implementation XCUIElement (FBTyping)
 
@@ -24,7 +24,7 @@
 
 - (BOOL)fb_typeText:(NSString *)text frequency:(NSUInteger)frequency error:(NSError **)error
 {
-  if (!self.hasKeyboardFocus && ![self fb_tapForClearWithError:error]) {
+  if (!self.hasKeyboardFocus && ![self av_tapForClearWithError:error]) {
     return NO;
   }
   if (![FBKeyboard typeText:text frequency:frequency error:error]) {

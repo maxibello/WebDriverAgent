@@ -24,33 +24,6 @@ const CGFloat FBTapDuration = 0.01f;
 
 @implementation XCUIElement (FBTap)
 
-- (BOOL)fb_tapWithError:(NSError **)error
-{
-  [self fb_waitUntilFrameIsStable];
-  __block BOOL didSucceed;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
-    CGPoint hitPoint = self.isHittable ? self.lastSnapshot.hitPoint : [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
-    XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
-      if (commandError) {
-        [FBLogger logFmt:@"Failed to perform tap: %@", commandError];
-      }
-      if (error) {
-        *error = commandError;
-      }
-      didSucceed = (commandError == nil);
-      completion();
-    };
-    XCEventGenerator *eventGenerator = [XCEventGenerator sharedGenerator];
-    if ([eventGenerator respondsToSelector:@selector(tapAtTouchLocations:numberOfTaps:orientation:handler:)]) {
-      [eventGenerator tapAtTouchLocations:@[[NSValue valueWithCGPoint:hitPoint]] numberOfTaps:1 orientation:self.interfaceOrientation handler:handlerBlock];
-    }
-    else {
-      [eventGenerator tapAtPoint:hitPoint orientation:self.interfaceOrientation handler:handlerBlock];
-    }
-  }];
-  return didSucceed;
-}
-
 - (BOOL)fb_tapForClearWithError:(NSError **)error
 {
   [self fb_waitUntilFrameIsStable];

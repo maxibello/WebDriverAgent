@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return YES if the operation succeeds, otherwise NO.
 */
 - (BOOL)fb_tapWithError:(NSError **)error;
-- (BOOL)fb_tapForClearWithError:(NSError **)error;
 
 /**
  Waits for element to become stable (not move) and performs sync tap on element
