@@ -11,19 +11,20 @@
 #import "XCUIElement+AVFind.h"
 
 #import "XCUIElement+FBWebDriverAttributes.h"
+#import "FBElementTypeTransformer.h"
 
 @implementation XCUIElement (FBFind)
 
 #pragma mark - Search by Xui
 
-- (NSArray<XCUIElement *> *)av_descendantsMatchingXui:(NSString *)locator
+- (NSArray<XCUIElement *> *)av_descendantsMatchingXui:(NSString *)locator shouldReturnAfterFirstMatch:(BOOL)shouldReturnAfterFirstMatch
 {
   // Делим локатор по вертикальной черте на элементы.
   NSMutableArray *resultElementList = [NSMutableArray array];
   NSArray *tokens = [self av_parseLocator:locator];
   NSError *error = nil;
   // Создаем регулярку для парсинга одной части локатора.
-  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\.{0,1})([0-9\\*]*)(\\(.+\\))*(\\[[0-9a-z]+\\]){0,1}$" options:NSRegularExpressionCaseInsensitive error:&error];
+  NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^(\\.{0,1})([A-Za-z\\*]*)(\\(.+\\))*(\\[[0-9a-z]+\\]){0,1}$" options:NSRegularExpressionCaseInsensitive error:&error];
   
   __block XCUIElement *currentElement = self;
   __block NSArray<XCUIElement *> *currentElements;
@@ -40,7 +41,14 @@
   
   //  [resultElementList addObject:currentElement];
   resultElementList = [NSMutableArray arrayWithArray:currentElements];
-  return resultElementList.copy;
+  if (!shouldReturnAfterFirstMatch) {
+    return resultElementList;
+  }
+  XCUIElement *matchedElement = [resultElementList objectAtIndex:0];
+  if (matchedElement) {
+    return @[matchedElement];
+  }
+  return @[];
 }
 
 - (NSArray *)av_parseLocator:(NSString *)locator {
@@ -72,7 +80,8 @@
   if ([type isEqualToString:@"*"]) {
     elementType = XCUIElementTypeAny;
   } else {
-    elementType = [type intValue];
+    NSString *typeName = [@"XCUIElementType" stringByAppendingString:type];
+    elementType = [FBElementTypeTransformer elementTypeWithTypeName:typeName];
   }
   
   // Если в начале стоит точка, то мы берем ребенка, если нет, то потомка.
@@ -145,34 +154,44 @@
     }
   }
   
+  XCUIElement *element;
+  NSArray<XCUIElement *> *resElements;
+  
   // Применение условий к запросу элемента
   if (hasPredicate) {
     if ([predicate hasPrefix:@"id"]) {
       NSArray *explodeResult = [predicate componentsSeparatedByString:@"="];
       query = [query matchingIdentifier:explodeResult[1]];
+      element = [query firstMatch];
     } else {
       NSPredicate *predicateObj = [NSPredicate predicateWithFormat:predicate];
-      query = [query matchingPredicate:predicateObj];
+      //      query = [query matchingPredicate:predicateObj];
+      if ([query count] > 1) {
+        element = [query firstMatch];
+      } else {
+        element = [query elementMatchingPredicate:predicateObj];
+        
+      }
+    }
+    resElements = [NSArray arrayWithObject:element];
+  } else {
+    // Применяем индекс к запросу или к массиву. Если индекс не указан, то берем первый элемент.
+    NSArray<XCUIElement *> *elements = [query allElementsBoundByIndex];
+    if (hasIndex) {
+      if ([index isEqualToString:@"last"]) {
+        element = [elements lastObject];
+        resElements = [NSArray arrayWithObject:element];
+      } else {
+        if ([elements count] > (NSUInteger) [index integerValue]) {
+          element = [elements objectAtIndex:[index intValue]];
+          resElements = [NSArray arrayWithObject:element];
+        }
+      }
+    } else {
+      resElements = elements;
     }
   }
   
-  // Применяем индекс к запросу или к массиву. Если индекс не указан, то берем первый элемент.
-  XCUIElement *element;
-  NSArray<XCUIElement *> *resElements;
-  NSArray<XCUIElement *> *elements = [query allElementsBoundByIndex];
-  if (hasIndex) {
-    if ([index isEqualToString:@"last"]) {
-      element = [elements lastObject];
-      resElements = [NSArray arrayWithObject:element];
-    } else {
-      if ([elements count] > (NSUInteger) [index integerValue]) {
-        element = [elements objectAtIndex:[index intValue]];
-        resElements = [NSArray arrayWithObject:element];
-      }
-    }
-  } else {
-    resElements = elements;
-  }
   return resElements;
 }
 
