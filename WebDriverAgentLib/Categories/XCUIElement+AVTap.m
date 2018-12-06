@@ -6,19 +6,22 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
+
 #import "XCUIElement+AVTap.h"
+
 #import "FBRunLoopSpinner.h"
 #import "FBLogger.h"
 #import "XCUIElement+FBUtilities.h"
-//#import "XCElementSnapshot-Hitpoint.h"
 #import "XCEventGenerator.h"
 #import "XCSynthesizedEventRecord.h"
+
 @implementation XCUIElement (AVTap)
-- (BOOL)av_tapForClearWithError:(NSError **)error
+
+- (BOOL)av_tapForClearWithError:(NSError * __autoreleasing *)error
 {
   [self fb_waitUntilFrameIsStable];
   __block BOOL didSucceed;
-  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)()){
+  [FBRunLoopSpinner spinUntilCompletion:^(void(^completion)(void)){
     CGPoint hitPoint = [self coordinateWithNormalizedOffset:CGVectorMake(0.5, 0.5)].screenPoint;
     XCEventGeneratorHandler handlerBlock = ^(XCSynthesizedEventRecord *record, NSError *commandError) {
       if (commandError) {
@@ -40,4 +43,5 @@
   }];
   return didSucceed;
 }
+
 @end
